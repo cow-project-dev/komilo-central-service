@@ -30,4 +30,8 @@ jobs:
           docker run -d \
           -p 5003:5003 \
           --name komilo-central-service-container \
+          --env DB_HOST="${{ secrets.DB_HOST }}" \
+          --env DB_USER="${{ secrets.DB_USER }}" \
+          --env DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+          --env DB_NAME="${{ secrets.DB_NAME }}" \
           cowdevp/komilo-central-service:latest
