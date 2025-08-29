@@ -13,16 +13,16 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker image
-        run: docker build -t komilo/komilo-central-service .
+        run: docker build -t cowdevp/komilo-central-service .
       - name: Publish image to Docker Hub
-        run: docker push komilo/komilo-central-service:latest
+        run: docker push cowdevp/komilo-central-service:latest
 
   deploy:
     needs: build
     runs-on: [komilo-ec2]
     steps:
       - name: Pull image from Docker Hub
-        run: docker pull komilo/komilo-central-service:latest
+        run: docker pull cowdevp/komilo-central-service:latest
       - name: Delete old container
         run: docker rm -f komilo-central-service-container
       - name: Run a new container
@@ -30,4 +30,4 @@ jobs:
           docker run -d \
           -p 5003:5003 \
           --name komilo-central-service-container \
-          komilo/komilo-central-service:latest
+          cowdevp/komilo-central-service:latest
